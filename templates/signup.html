@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h1 class="text-center logo my-4">
+      <a href="{% url 'home' %}">Django Blogs</a>
+    </h1>
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-10 col-sm-12">
+        <div class="card">
+{#            <img class="card-img-top" src="static/img/4.jpg" alt="Card image">#}
+          <div class="card-img-overlay">
+            <h3 class="card-title text-center">Sign up</h3>
+            <form method="post" novalidate>
+              {% csrf_token %}
+              {% include 'includes/form.html' %}
+              <button type="submit" class="btn btn-primary btn-block">Create an account</button>
+                <div class="text-muted text-center">
+                Already have an account? <a href="#">Log in</a></div>
+            </form>
+          </div>
+{#          <div class="card-footer card-img-overlay text-muted text-center">#}
+{#            Already have an account? <a href="#">Log in</a>#}
+          </div>
+        </div>
+      </div>
+    </div>
+{#  </div>#}
+{% endblock %}

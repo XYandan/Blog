@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Devil Blogs</li>
+{% endblock %}
+
+{% block content %}
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th>blog</th>
+        <th>Posts</th>
+        <th>Topics</th>
+        <th>Last Post</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for blog in blogs %}
+        <tr>
+          <td>
+            <a href="{% url 'blog_topics' blog.pk %}">{{ blog.name }}</a>
+            <small class="text-muted d-block">{{ blog.description }}</small>
+          </td>
+          <td class="align-middle">0</td>
+          <td class="align-middle">0</td>
+          <td></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
