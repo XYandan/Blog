@@ -1,16 +1,8 @@
-{% extends 'base.html' %}
+{% extends 'base_accounts.html' %}
 
-{% load static %}
+{% block title %}Sign up to Blogs{% endblock %}
 
-{% block stylesheet %}
-  <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
-{% endblock %}
-
-{% block body %}
-  <div class="container">
-    <h1 class="text-center logo my-4">
-      <a href="{% url 'home' %}">Django Blogs</a>
-    </h1>
+{% block content %}
     <div class="row justify-content-center">
       <div class="col-lg-8 col-md-10 col-sm-12">
         <div class="card">
@@ -22,7 +14,7 @@
               {% include 'includes/form.html' %}
               <button type="submit" class="btn btn-primary btn-block">Create an account</button>
                 <div class="text-muted text-center">
-                Already have an account? <a href="#">Log in</a></div>
+                Already have an account? <a href="{% url 'login' %}">Log in</a></div>
             </form>
           </div>
 {#          <div class="card-footer card-img-overlay text-muted text-center">#}
@@ -30,6 +22,5 @@
           </div>
         </div>
       </div>
-    </div>
 {#  </div>#}
 {% endblock %}
