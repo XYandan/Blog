@@ -1,5 +1,15 @@
 {% load widget_tweaks %}
 
+{#更新非字段错误 用于 登录时 账户密码的输入错误  渲染颜色#}
+{% if form.non_field_errors %}
+    <div class="alert alert-danger" role="alert">
+    {% for error in form.non_field_errors %}
+        <p{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
+    {% endfor %}
+    </div>
+{% endif %}
+
+{#注册时的错误提示#}
 {% for field in form %}
   <div class="form-group">
     {{ field.label_tag }}
