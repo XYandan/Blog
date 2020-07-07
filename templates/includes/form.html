@@ -1,4 +1,4 @@
-{% load widget_tweaks %}
+{% load form_tags widget_tweaks %}
 
 {#更新非字段错误 用于 登录时 账户密码的输入错误  渲染颜色#}
 {% if form.non_field_errors %}
@@ -10,25 +10,17 @@
 {% endif %}
 
 {#注册时的错误提示#}
+{#使用自定义的模板 form_tags#}
+{#修改了password在不输入时为绿色边框的问题#}
 {% for field in form %}
   <div class="form-group">
     {{ field.label_tag }}
-
-    {% if form.is_bound %}
-      {% if field.errors %}
-        {% render_field field class="form-control is-invalid" %}
-        {% for error in field.errors %}
-          <div class="invalid-feedback">
-            {{ error }}
-          </div>
-        {% endfor %}
-      {% else %}
-        {% render_field field class="form-control is-valid" %}
-      {% endif %}
-    {% else %}
-      {% render_field field class="form-control" %}
-    {% endif %}
-
+    {% render_field field class=field|input_class %}
+    {% for error in field.errors %}
+      <div class="invalid-feedback">
+        {{ error }}
+      </div>
+    {% endfor %}
     {% if field.help_text %}
       <small class="form-text text-muted">
         {{ field.help_text|safe }}

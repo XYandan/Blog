@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse,resolve
-from .views import home,blog_topics,new_topic
-from .models import Blog
+from ..views import home,blog_topics,new_topic
+from ..models import Blog
 
 #主页测试
 class HomeTests(TestCase):

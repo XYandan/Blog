@@ -2,9 +2,9 @@ from django.test import TestCase
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse
 from django.urls import resolve
-from .views import signup
+from ..views import signup
 from django.contrib.auth.models import User
-from .forms import SignUpForm
+from ..forms import SignUpForm
 
 class SignUpTest(TestCase):
     def setUp(self):
@@ -74,3 +74,4 @@ class InvalidSignUpTests(TestCase):
 
     def test_dont_create_user(self):
         self.assertFalse(User.objects.exists())
+
