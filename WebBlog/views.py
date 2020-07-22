@@ -1,6 +1,3 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.http import Http404
 from django.shortcuts import render, get_object_or_404,redirect
 from .models import Blog,Topic,Post
 from django.contrib.auth.models import User
@@ -60,5 +57,10 @@ def new_topic(request,pk):
         form = NewTopicForm()
 
     return render(request,'new_topic.html',{'blog':blog,'form':form})
+
+
+def topic_posts(request, pk, topic_pk):
+    topic = get_object_or_404(Topic, pk = topic_pk)
+    return render(request, 'topic_posts.html', {'topic':topic})
 
 
