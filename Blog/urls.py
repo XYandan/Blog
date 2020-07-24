@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^blogs/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
     url(r'^$', views.home, name='home'),
     url(r'^blogs/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/$', views.topic_posts, name='topic_posts'),
+    url(r'^blogs/(?P<pk>\d+)/topics/(?P<topic_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
 
     # reset url
     url(r'^reset/$', auth_views.PasswordResetView.as_view(template_name='password_reset.html',

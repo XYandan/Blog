@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404,redirect
 from .models import Blog,Topic,Post
 from django.contrib.auth.models import User
-from .forms import NewTopicForm
+from .forms import NewTopicForm,PostForm
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 
 #主页
@@ -51,7 +52,7 @@ def new_topic(request,pk):
                 created_by = request.user
             )
 
-            return redirect('blog_topics', pk=blog.pk)  # TODO: redirect to the created topic page
+            return redirect('topic_posts', pk=pk, topic_pk=topic.pk)  # TODO: redirect to the created topic page
 
     else:
         form = NewTopicForm()
@@ -59,8 +60,28 @@ def new_topic(request,pk):
     return render(request,'new_topic.html',{'blog':blog,'form':form})
 
 
-def topic_posts(request, pk, topic_pk):
-    topic = get_object_or_404(Topic, pk = topic_pk)
+
+def topic_posts(request,pk, topic_pk):
+    topic = get_object_or_404(Topic,blog__pk=pk, pk = topic_pk)
     return render(request, 'topic_posts.html', {'topic':topic})
+
+# 回复
+@login_required
+def reply_topic(request, pk, topic_pk):
+    topic = get_object_or_404(Topic,blog__pk=pk,pk = topic_pk)
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.topic = topic
+            post.created_by = request.user
+            post.save()
+            return redirect('topic_posts', pk= pk, topic_pk= topic_pk)
+
+    else:
+        form = PostForm()
+
+    return render(request,'reply_topic.html',{'topic':topic,'form':form})
+
 
 
