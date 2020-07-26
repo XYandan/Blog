@@ -21,9 +21,24 @@
             <a href="{% url 'blog_topics' blog.pk %}">{{ blog.name }}</a>
             <small class="text-muted d-block">{{ blog.description }}</small>
           </td>
-          <td class="align-middle">0</td>
-          <td class="align-middle">0</td>
-          <td></td>
+          <td class="align-middle">{{ blog.get_posts_count }}</td>
+          <td class="align-middle">{{blog.topics.count}}</td>
+          <td class="align-middle">
+              {% with post=blog.get_last_post%}
+                  {% if post %}
+                  <small>
+                    <a href="{% url 'topic_posts' blog.pk post.topic.pk %}">
+                        By {{ post.created_by.username }} at {{ post.created_at }}
+                    </a>
+                  </small>
+                  {% else %}
+                      <small class="text-muted">
+                      <em>No post yet.</em>
+                      </small>
+                  {% endif %}
+              
+              {% endwith %}
+          </td>
         </tr>
       {% endfor %}
     </tbody>
