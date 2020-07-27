@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .forms import NewTopicForm,PostForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from django.db.models import Count
 
 
 #主页
@@ -21,8 +22,8 @@ def home(request):
 
 def blog_topics(request,pk):
     blog = get_object_or_404(Blog,pk = pk)
-
-    return render(request, 'topics.html',{'blog': blog})
+    topics = blog.topics.order_by('-last_updated').annotate(replies=Count('posts') - 1)
+    return render(request, 'topics.html',{'blog': blog,'topics':topics})
 
 
 
@@ -63,6 +64,8 @@ def new_topic(request,pk):
 
 def topic_posts(request,pk, topic_pk):
     topic = get_object_or_404(Topic,blog__pk=pk, pk = topic_pk)
+    topic.views += 1
+    topic.save()
     return render(request, 'topic_posts.html', {'topic':topic})
 
 # 回复

@@ -24,12 +24,12 @@
       </tr>
     </thead>
     <tbody>
-      {% for topic in blog.topics.all %}
+      {% for topic in topics %}
         <tr>
           <td><a href="{% url 'topic_posts' blog.pk topic.pk %}">{{ topic.subject }}</a></td>{# 跳转到reply界面 #}
           <td>{{ topic.starter.username }}</td>
-          <td>0</td>
-          <td>0</td>
+          <td>{{topic.replies}}</td>
+          <td>{{topic.views}}</td>
           <td>{{ topic.last_updated }}</td>
         </tr>
       {% endfor %}
